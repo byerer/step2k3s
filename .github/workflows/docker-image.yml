@@ -37,7 +37,8 @@ jobs:
           version: 'latest'
 
       - name: 部署到 k3s 集群
-        uses: kubernetes/kubectl@v1.23.13
+        uses: kubernetes/kubectl@v1.2.0
         with:
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+          kubectl-version: '1.23.13'
           command: apply -f deployment.yaml
