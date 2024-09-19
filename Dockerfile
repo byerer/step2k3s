@@ -1,9 +1,8 @@
-FROM golang:1.22.0 AS builder
+FROM golang:1.22 AS builder
 
 WORKDIR /app
 ENV GOPROXY=https://goproxy.cn,direct
 
-# 复制 go.mod 和 go.sum 并下载依赖
 COPY go.mod go.sum ./
 RUN go mod download
 
@@ -11,7 +10,6 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/step2k3s
 
-# 使用 alpine 作为基础镜像，尽可能减少体积
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 
