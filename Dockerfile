@@ -9,7 +9,7 @@ RUN go mod download
 
 # 复制所有代码并构建项目
 COPY . .
-RUN GOOS=linux go build -o /app/step2k3s
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/step2k3s
 
 # 使用 alpine 作为基础镜像，尽可能减少体积
 FROM alpine:latest
