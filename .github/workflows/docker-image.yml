@@ -32,9 +32,8 @@ jobs:
           tags: byerer/step2k3s:latest
 
       - name: 安装 kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: '1.23.13'  # 指定 kubectl 版本
+        uses: azure/setup-kubectl@v4
+        id: install
 
       - name: 部署到 k3s 集群
         env:
