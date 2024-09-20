@@ -29,15 +29,18 @@ jobs:
         with:
           context: .
           push: true
-          tags: byerer/step2k3s:latest
+          tags: |
+            byerer/step2k3s:latest
+            byerer/step2k3s:${{ github.sha }}
 
-      - name: 安装 kubectl
+      - name: Install kubectl
         uses: azure/setup-kubectl@v4
         id: install
 
       - name: 部署到 k3s 集群
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          KUBECONFIG: kubeconfig
         run: |
           echo "$KUBE_CONFIG_DATA" | base64 --decode > kubeconfig
-          cat kubeconfig
+          kubectl rollout restart deployment/step2k3s -n step2k3s
