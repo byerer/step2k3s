@@ -7,7 +7,7 @@ func main() {
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Hello, world!",
-			"version": "1.0.0",
+			"version": "2.0.0",
 		})
 	})
 	r.Run()
