@@ -34,11 +34,11 @@ jobs:
       - name: 安装 kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'latest'
+          version: '1.23.13'  # 指定 kubectl 版本
 
       - name: 部署到 k3s 集群
-        uses: kubernetes/kubectl@v1.2.0
-        with:
-          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
-          kubectl-version: '1.23.13'
-          command: apply -f deployment.yaml
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        run: |
+          echo "$KUBE_CONFIG_DATA" | base64 --decode > kubeconfig
+          kubectl --kubeconfig=kubeconfig apply -f deployment.yaml
