@@ -7,10 +7,11 @@ import (
 
 func main() {
 	r := gin.Default()
+	host, _ := os.Hostname()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Hello, world!",
-			"host":    os.Hostname(),
+			"host":    host,
 			"version": "3.0.0",
 		})
 	})
