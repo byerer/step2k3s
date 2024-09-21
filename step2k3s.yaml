@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: step2k3s
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: step2k3s
+  template:
+    metadata:
+      labels:
+        app: step2k3s
+    spec:
+      containers:
+      - name: step2k3s-container 
+        image: byerer/step2k3s:latest
+        ports:
+        - containerPort: 8080
+        imagePullPolicy: Always  # 确保每次都拉取最新镜像
